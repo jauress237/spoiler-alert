@@ -69,27 +69,32 @@ class SeriesPage extends StatelessWidget {
     // Création de la liste des séries avec toutes les images
     final List<ContentDetails> series = List.generate(55, (index) {
       final title = seriesTitles[index % seriesTitles.length];
-      final imageNumber = (index % 55) + 1; // Assure que nous restons dans la plage 1-55
+      final imageNumber =
+          (index % 55) + 1; // Assure que nous restons dans la plage 1-55
       return ContentDetails(
         title: title,
         image: 'assets/images/series-img/series-img-$imageNumber.png',
         rating: 4.0 + (index % 2) * 0.5, // Alternance entre 4.0 et 4.5
         year: 2020 + (index % 5), // Années entre 2020 et 2024
-        genre: index % 3 == 0 
-            ? 'Drame, Thriller' 
-            : index % 3 == 1 
-                ? 'Science-Fiction, Fantastique' 
+        genre:
+            index % 3 == 0
+                ? 'Drame, Thriller'
+                : index % 3 == 1
+                ? 'Science-Fiction, Fantastique'
                 : 'Comédie, Romance',
-        description: 'Description détaillée de la série $title. Une histoire captivante qui vous tiendra en haleine du début à la fin.',
+        description:
+            'Description détaillée de la série $title. Une histoire captivante qui vous tiendra en haleine du début à la fin.',
         actors: ['Acteur 1', 'Acteur 2', 'Acteur 3'],
-        streamingPlatforms: index % 3 == 0 
-            ? ['Netflix', 'Amazon Prime'] 
-            : index % 3 == 1 
-                ? ['Disney+', 'HBO Max'] 
+        streamingPlatforms:
+            index % 3 == 0
+                ? ['Netflix', 'Amazon Prime']
+                : index % 3 == 1
+                ? ['Disney+', 'HBO Max']
                 : ['Apple TV+', 'Paramount+'],
         episodes: 10 + (index % 20), // Entre 10 et 30 épisodes
         seasons: 1 + (index % 5), // Entre 1 et 6 saisons
-        releaseDate: '${1 + (index % 28)} ${['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'][index % 12]} ${2020 + (index % 5)}',
+        releaseDate:
+            '${1 + (index % 28)} ${['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'][index % 12]} ${2020 + (index % 5)}',
       );
     });
 
@@ -98,10 +103,7 @@ class SeriesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Séries',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -147,7 +149,8 @@ class SeriesPage extends StatelessWidget {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => DetailsPage(content: serie),
+                                builder:
+                                    (context) => DetailsPage(content: serie),
                               ),
                             );
                           },
@@ -164,8 +167,14 @@ class SeriesPage extends StatelessWidget {
                                       serie.image,
                                       fit: BoxFit.cover,
                                       width: double.infinity,
-                                      errorBuilder: (context, error, stackTrace) {
-                                        print('Erreur lors du chargement de l\'image: ${serie.image}');
+                                      errorBuilder: (
+                                        context,
+                                        error,
+                                        stackTrace,
+                                      ) {
+                                        print(
+                                          'Erreur lors du chargement de l\'image: ${serie.image}',
+                                        );
                                         print('Erreur: $error');
                                         return Container(
                                           color: Colors.grey[800],
@@ -193,10 +202,16 @@ class SeriesPage extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    const Icon(Icons.star, color: Colors.amber, size: 16),
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.amber,
+                                      size: 16,
+                                    ),
                                     Text(
                                       ' ${serie.rating}',
-                                      style: const TextStyle(color: Colors.white),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -228,12 +243,13 @@ class SeriesPage extends StatelessWidget {
                   GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 0.7,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: 0.7,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                        ),
                     itemCount: series.length,
                     itemBuilder: (context, index) {
                       final serie = series[index];
@@ -265,7 +281,9 @@ class SeriesPage extends StatelessWidget {
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     errorBuilder: (context, error, stackTrace) {
-                                      print('Erreur lors du chargement de l\'image: ${serie.image}');
+                                      print(
+                                        'Erreur lors du chargement de l\'image: ${serie.image}',
+                                      );
                                       print('Erreur: $error');
                                       return Container(
                                         color: Colors.grey[800],
@@ -306,10 +324,16 @@ class SeriesPage extends StatelessWidget {
                                     const SizedBox(height: 4),
                                     Row(
                                       children: [
-                                        const Icon(Icons.star, color: Colors.amber, size: 16),
+                                        const Icon(
+                                          Icons.star,
+                                          color: Colors.amber,
+                                          size: 16,
+                                        ),
                                         Text(
                                           ' ${serie.rating}',
-                                          style: const TextStyle(color: Colors.white),
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
                                         ),
                                         const Spacer(),
                                         Text(
@@ -338,4 +362,4 @@ class SeriesPage extends StatelessWidget {
       ),
     );
   }
-} 
+}
