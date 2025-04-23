@@ -4,9 +4,16 @@ import 'package:newtest/pages/Home/home.dart';
 import 'package:newtest/pages/Films/films_page.dart';
 import 'package:newtest/pages/Series/series_page.dart';
 import 'package:newtest/pages/Favoris/favoris_page.dart';
+import 'package:provider/provider.dart';
+import 'package:newtest/pages/Home/widgets/header.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -20,12 +27,15 @@ class MyApp extends StatelessWidget {
         statusBarIconBrightness: Brightness.light,
       ),
     );
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'SPOILLER ALERT',
       theme: ThemeData(
-        primarySwatch: Colors.red,
-        scaffoldBackgroundColor: const Color(0xFF1A1A1A),
+        brightness: themeProvider.isDarkMode ? Brightness.dark : Brightness.light,
+        primarySwatch: Colors.blue,
+        scaffoldBackgroundColor: themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
         appBarTheme: const AppBarTheme(
           backgroundColor: Color(0xFF1A1A1A),
           foregroundColor: Colors.white,
@@ -37,7 +47,7 @@ class MyApp extends StatelessWidget {
           unselectedItemColor: Colors.grey,
         ),
       ),
-      home: const MainNavigation(),
+      home: const HomePage(),
     );
   }
 }
