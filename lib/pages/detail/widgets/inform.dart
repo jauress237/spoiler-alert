@@ -13,7 +13,7 @@ class InformInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromARGB(255, 23, 22, 24),
+      color: const Color.fromARGB(255, 253, 252, 253),
       child: Column(
         children: [
           HeaderSec(info),

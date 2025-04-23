@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'SPOILLER ALERT',
+      title: 'SPOILER ALERT',
       home: HomePage(),
     );
   }

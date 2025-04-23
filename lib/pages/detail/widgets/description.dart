@@ -19,7 +19,10 @@ class DescriptionSection extends StatelessWidget {
         trimCollapsedText: 'more',
         trimExpandedText: ' reduire',
         // ignore: deprecated_member_use
-        style: TextStyle(color: Colors.grey.withOpacity(0.7), height: 1.5),
+        style: TextStyle(
+          color: const Color.fromARGB(255, 0, 0, 0).withOpacity(1),
+          height: 1.5,
+        ),
       ),
     );
   }

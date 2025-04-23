@@ -19,7 +19,13 @@ class ReviewSection extends StatelessWidget {
                 'Ratings and review',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text('view', style: TextStyle(fontSize: 12, color: Colors.grey)),
+              Text(
+                'view',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 15),
@@ -47,14 +53,19 @@ class ReviewSection extends StatelessWidget {
                         Icons.star,
                         size: 25,
                         // ignore: deprecated_member_use
-                        color: Colors.grey.withOpacity(0.3),
+                        color: const Color.fromARGB(
+                          255,
+                          7,
+                          7,
+                          7,
+                        ).withOpacity(0.3),
                       ),
                     ],
                   ),
                   const SizedBox(height: 5),
                   Text(
                     '${info.review.toString()} review',
-                    style: const TextStyle(color: Colors.grey),
+                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                 ],
               ),
@@ -74,8 +85,11 @@ class ReviewSection extends StatelessWidget {
               ),
               onPressed: () {},
               child: const Text(
-                'see',
-                style: TextStyle(color: Colors.white, fontSize: 18),
+                'Commenter',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: 18,
+                ),
               ),
             ),
           ),

@@ -4,7 +4,7 @@ import 'package:newtest/models/info.dart';
 class NewestSection extends StatelessWidget {
   NewestSection({super.key});
 
-  final List<Info> infos = Info.infos();
+  final List<F_Action> f_Actions = F_Action.f_Actions();
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,9 @@ class NewestSection extends StatelessWidget {
       padding: const EdgeInsets.all(25),
       child: Column(
         children:
-            infos
+            f_Actions
                 .map(
-                  (info) => Container(
+                  (f_Action) => Container(
                     padding: const EdgeInsets.all(15),
                     margin: const EdgeInsets.only(bottom: 20),
                     decoration: BoxDecoration(
@@ -25,7 +25,7 @@ class NewestSection extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(5),
-                          child: Image.asset(info.icon, width: 60),
+                          child: Image.asset(f_Action.icon, width: 60),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
@@ -33,7 +33,7 @@ class NewestSection extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                info.name,
+                                f_Action.name,
                                 style: const TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -49,13 +49,12 @@ class NewestSection extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        info.type,
+                                        f_Action.type,
                                         style: TextStyle(
                                           color: Colors.grey.withOpacity(0.8),
                                         ),
                                       ),
                                       const SizedBox(height: 2),
-                                      /* Etoille Review - Notation */
                                       Row(
                                         children: [
                                           const Icon(
@@ -87,7 +86,6 @@ class NewestSection extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  /**  Bouton Install*/
                                   Container(
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 5,
@@ -103,7 +101,7 @@ class NewestSection extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     child: const Text(
-                                      'Open',
+                                      'Ouvrir',
                                       style: TextStyle(
                                         color: Color.fromARGB(
                                           255,

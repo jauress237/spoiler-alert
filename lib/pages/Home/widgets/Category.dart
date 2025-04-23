@@ -7,24 +7,54 @@ class CategorySection extends StatelessWidget {
 
   final categories = [
     {
-      'icon': Icons.track_changes_outlined,
+      'icon': Icons.movie_creation,
       'color': const Color(0xFF605CF4),
-      'title': 'Action',
+      'title': 'film/Action',
     },
     {
-      'icon': Icons.sports_motorsports_outlined,
-      'color': const Color(0xFFFC77A6),
-      'title': 'Romance',
+      'icon': Icons.heart_broken_rounded,
+      'color': const Color.fromARGB(255, 211, 39, 39),
+      'title': 'film/Aventure',
     },
     {
-      'icon': Icons.casino_outlined,
+      'icon': Icons.collections,
+      'color': const Color.fromARGB(255, 114, 104, 104),
+      'title': 'film/Drame',
+    },
+    {
+      'icon': Icons.pivot_table_chart_rounded,
       'color': const Color(0xFF4391FF),
-      'title': 'Adventure',
+      'title': 'film/Horreur',
     },
     {
       'icon': Icons.sports_esports,
       'color': const Color(0xFF7182f2),
-      'title': 'More',
+      'title': 'film/Animation',
+    },
+    {
+      'icon': Icons.movie_creation,
+      'color': const Color(0xFF605CF4),
+      'title': 'Serie/Action',
+    },
+    {
+      'icon': Icons.heart_broken_rounded,
+      'color': const Color.fromARGB(255, 211, 39, 39),
+      'title': 'Serie/Aventure',
+    },
+    {
+      'icon': Icons.collections,
+      'color': const Color.fromARGB(255, 114, 104, 104),
+      'title': 'Serie/Drame',
+    },
+    {
+      'icon': Icons.pivot_table_chart_rounded,
+      'color': const Color(0xFF4391FF),
+      'title': 'Serie/Horreur',
+    },
+    {
+      'icon': Icons.sports_esports,
+      'color': const Color(0xFF7182f2),
+      'title': 'Serie/Animation',
     },
   ];
 
@@ -75,11 +105,12 @@ class CategorySection extends StatelessWidget {
               itemCount: categories.length,
             ),
           ),
+
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 25),
             width: 400,
             child: const Text(
-              'Popular',
+              'POPULAIRES',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
           ),
@@ -89,7 +120,7 @@ class CategorySection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 30),
             width: 410,
             child: const Text(
-              'Newest',
+              'NOUVEAUX',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
             ),
           ),

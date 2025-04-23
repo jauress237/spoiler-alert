@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
               0,
               0,
               0,
-            ).withOpacity(0.7),
+            ).withOpacity(1),
             type: BottomNavigationBarType.fixed,
             items: [
               const BottomNavigationBarItem(
@@ -88,7 +88,6 @@ class HomePage extends StatelessWidget {
                   margin: const EdgeInsets.all(5),
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    // ignore: deprecated_member_use
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -105,7 +104,6 @@ class HomePage extends StatelessWidget {
                   margin: const EdgeInsets.all(5),
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    // ignore: deprecated_member_use
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -122,7 +120,6 @@ class HomePage extends StatelessWidget {
                   margin: const EdgeInsets.all(5),
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    // ignore: deprecated_member_use
                     color: Colors.grey.withOpacity(0.2),
                     borderRadius: BorderRadius.circular(10),
                   ),

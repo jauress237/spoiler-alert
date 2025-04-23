@@ -25,15 +25,15 @@ class PopularSection extends StatelessWidget {
               child: Card(
                 elevation: 5,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.vertical(),
                 ),
                 child: Container(
                   padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.vertical(),
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.vertical(),
                     child: Image.asset(infos[index].bgImage),
                   ),
                 ),

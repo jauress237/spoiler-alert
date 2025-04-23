@@ -33,6 +33,12 @@ class HeaderSection extends StatelessWidget {
             ],
           ),
           CircleAvatar(
+            child: Image.asset(
+              'assets/images/WhatsApp Image 2025-04-12 à 01.32.10_e0c82537.jpg',
+              fit: BoxFit.cover,
+            ),
+          ),
+          CircleAvatar(
             child: Image.asset('assets/images/avatar.png', fit: BoxFit.cover),
           ),
         ],

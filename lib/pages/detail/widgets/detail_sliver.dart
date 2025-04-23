@@ -39,7 +39,12 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
               ),
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 121, 69, 69).withOpacity(0.5),
+                color: const Color.fromARGB(
+                  255,
+                  252,
+                  252,
+                  252,
+                ).withOpacity(0.5),
                 shape: BoxShape.circle,
               ),
               child: const Icon(
@@ -56,7 +61,7 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
             width: MediaQuery.of(context).size.width,
             height: roundedContainerHeight,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(255, 95, 21, 21),
+              color: Color.fromARGB(255, 126, 130, 192),
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(30),
                 topRight: Radius.circular(30),
@@ -66,7 +71,7 @@ class DetailSliverDelegate extends SliverPersistentHeaderDelegate {
               alignment: Alignment.center,
               width: 60,
               height: 5,
-              color: const Color.fromARGB(255, 44, 2, 2),
+              color: const Color.fromARGB(255, 255, 255, 255),
             ),
           ),
         ),

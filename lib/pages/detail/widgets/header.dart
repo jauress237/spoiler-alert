@@ -27,7 +27,9 @@ class HeaderSec extends StatelessWidget {
               Text(
                 info.type,
                 // ignore: deprecated_member_use
-                style: TextStyle(color: Colors.grey.withOpacity(0.5)),
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 48, 46, 46).withOpacity(1),
+                ),
               ),
               const SizedBox(height: 5),
               Row(
