@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:newtest/models/info.dart';
 import 'package:newtest/pages/Home/widgets/newest.dart';
 import 'package:newtest/pages/home/widgets/category.dart';
 import 'package:newtest/pages/home/widgets/search.dart';
 import 'package:newtest/pages/home/widgets/nouveautes_carousel.dart';
+import 'package:newtest/providers/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,19 +15,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _isDarkMode = true;
-
-  void _toggleTheme() {
-    setState(() {
-      _isDarkMode = !_isDarkMode;
-      // Ici, vous pouvez ajouter la logique pour changer le thème de l'application
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -36,7 +31,7 @@ class _HomePageState extends State<HomePage> {
               child: Image.asset(
                 'assets/images/bg_liquid.png',
                 width: 180,
-                color: Colors.purple.withOpacity(0.3),
+                color: themeProvider.isDarkMode ? Colors.purple.withOpacity(0.3) : Colors.purple.withOpacity(0.1),
               ),
             ),
             Positioned(
@@ -48,7 +43,7 @@ class _HomePageState extends State<HomePage> {
                 child: Image.asset(
                   'assets/images/bg_liquid.png',
                   width: 200,
-                  color: Colors.blue.withOpacity(0.3),
+                  color: themeProvider.isDarkMode ? Colors.blue.withOpacity(0.3) : Colors.blue.withOpacity(0.1),
                 ),
               ),
             ),
@@ -70,10 +65,10 @@ class _HomePageState extends State<HomePage> {
                             height: 40,
                           ),
                           const SizedBox(width: 10),
-                          const Text(
+                          Text(
                             'SPOILER ALERT',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.5,
@@ -85,16 +80,16 @@ class _HomePageState extends State<HomePage> {
                       PopupMenuButton<String>(
                         icon: Icon(
                           Icons.settings,
-                          color: Colors.white,
+                          color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                           size: 28,
                         ),
-                        color: const Color(0xFF2A2A2A),
+                        color: themeProvider.isDarkMode ? const Color(0xFF2A2A2A) : Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
                         onSelected: (value) {
                           if (value == 'theme') {
-                            _toggleTheme();
+                            themeProvider.toggleTheme();
                           } else if (value == 'profile') {
                             // Navigation vers la page de profil
                           }
@@ -105,13 +100,13 @@ class _HomePageState extends State<HomePage> {
                             child: Row(
                               children: [
                                 Icon(
-                                  _isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                                  color: Colors.white,
+                                  themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                                  color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                                 ),
                                 const SizedBox(width: 10),
                                 Text(
-                                  _isDarkMode ? 'Mode Clair' : 'Mode Sombre',
-                                  style: const TextStyle(color: Colors.white),
+                                  themeProvider.isDarkMode ? 'Mode Clair' : 'Mode Sombre',
+                                  style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
                                 ),
                               ],
                             ),
@@ -119,15 +114,15 @@ class _HomePageState extends State<HomePage> {
                           PopupMenuItem<String>(
                             value: 'profile',
                             child: Row(
-                              children: const [
+                              children: [
                                 Icon(
                                   Icons.person,
-                                  color: Colors.white,
+                                  color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Text(
                                   'Mon Profil',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
                                 ),
                               ],
                             ),

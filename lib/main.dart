@@ -1,12 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:newtest/pages/Home/home.dart';
 import 'package:newtest/pages/Films/films_page.dart';
 import 'package:newtest/pages/Series/series_page.dart';
 import 'package:newtest/pages/Favoris/favoris_page.dart';
+import 'package:newtest/providers/theme_provider.dart';
+import 'package:newtest/providers/favorites_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -20,24 +31,15 @@ class MyApp extends StatelessWidget {
         statusBarIconBrightness: Brightness.light,
       ),
     );
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'SPOILLER ALERT',
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-        scaffoldBackgroundColor: const Color(0xFF1A1A1A),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1A1A1A),
-          foregroundColor: Colors.white,
-          elevation: 0,
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF1A1A1A),
-          selectedItemColor: Colors.red,
-          unselectedItemColor: Colors.grey,
-        ),
-      ),
-      home: const MainNavigation(),
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'SPOILLER ALERT',
+          theme: themeProvider.currentTheme,
+          home: const MainNavigation(),
+        );
+      },
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'comment.dart';
+
 class ContentDetails {
   final String title;
   final String image;
@@ -10,6 +12,7 @@ class ContentDetails {
   final int? episodes;
   final int? seasons;
   final String releaseDate;
+  final List<Comment> comments;
 
   ContentDetails({
     required this.title,
@@ -23,5 +26,6 @@ class ContentDetails {
     this.episodes,
     this.seasons,
     required this.releaseDate,
+    this.comments = const [],
   });
 } 

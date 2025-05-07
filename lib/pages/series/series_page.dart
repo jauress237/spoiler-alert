@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:newtest/models/content_details.dart';
-import 'package:newtest/pages/Details/details_page.dart';
+import 'package:newtest/models/info.dart';
+import 'package:newtest/pages/detail/detail.dart';
+import 'package:newtest/providers/theme_provider.dart';
 import 'dart:io';
 
 class SeriesPage extends StatelessWidget {
@@ -8,6 +11,8 @@ class SeriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
     // Liste des titres de séries fictifs
     final List<String> seriesTitles = [
       'Breaking Bad',
@@ -98,22 +103,34 @@ class SeriesPage extends StatelessWidget {
       );
     });
 
+    // Conversion des ContentDetails en Info
+    final List<Info> seriesInfos = series.map((serie) => Info.fromContentDetails(serie)).toList();
+
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A1A),
+      backgroundColor: themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Séries',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+            fontWeight: FontWeight.bold
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.white),
+            icon: Icon(
+              Icons.search,
+              color: themeProvider.isDarkMode ? Colors.white : Colors.black
+            ),
             onPressed: () {},
           ),
           IconButton(
-            icon: const Icon(Icons.filter_list, color: Colors.white),
+            icon: Icon(
+              Icons.filter_list,
+              color: themeProvider.isDarkMode ? Colors.white : Colors.black
+            ),
             onPressed: () {},
           ),
         ],
@@ -128,10 +145,10 @@ class SeriesPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Tendance',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -141,16 +158,15 @@ class SeriesPage extends StatelessWidget {
                     height: 200,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: series.length,
+                      itemCount: seriesInfos.length,
                       itemBuilder: (context, index) {
-                        final serie = series[index];
+                        final serie = seriesInfos[index];
                         return GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder:
-                                    (context) => DetailsPage(content: serie),
+                                builder: (context) => DetailPage(serie),
                               ),
                             );
                           },
@@ -160,57 +176,33 @@ class SeriesPage extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(
-                                  child: ClipRRect(
+                                ClipRRect(
                                     borderRadius: BorderRadius.circular(8),
                                     child: Image.asset(
-                                      serie.image,
+                                    serie.bgImage,
+                                    width: 140,
+                                    height: 200,
                                       fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      errorBuilder: (
-                                        context,
-                                        error,
-                                        stackTrace,
-                                      ) {
-                                        print(
-                                          'Erreur lors du chargement de l\'image: ${serie.image}',
-                                        );
-                                        print('Erreur: $error');
-                                        return Container(
-                                          color: Colors.grey[800],
-                                          child: const Center(
-                                            child: Icon(
-                                              Icons.error_outline,
-                                              color: Colors.red,
-                                              size: 40,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 8),
                                 Text(
-                                  serie.title,
-                                  style: const TextStyle(
-                                    color: Colors.white,
+                                  serie.name,
+                                  style: TextStyle(
+                                    color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  maxLines: 1,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
+                                const SizedBox(height: 4),
                                 Row(
                                   children: [
-                                    const Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                      size: 16,
-                                    ),
+                                    const Icon(Icons.star, color: Colors.amber, size: 16),
                                     Text(
-                                      ' ${serie.rating}',
-                                      style: const TextStyle(
-                                        color: Colors.white,
+                                      ' ${serie.score}',
+                                      style: TextStyle(
+                                        color: themeProvider.isDarkMode ? Colors.grey : Colors.black54,
                                       ),
                                     ),
                                   ],
@@ -231,10 +223,10 @@ class SeriesPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Nouveautés',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -250,97 +242,63 @@ class SeriesPage extends StatelessWidget {
                           crossAxisSpacing: 16,
                           mainAxisSpacing: 16,
                         ),
-                    itemCount: series.length,
+                    itemCount: seriesInfos.length,
                     itemBuilder: (context, index) {
-                      final serie = series[index];
+                      final serie = seriesInfos[index];
                       return GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailsPage(content: serie),
+                              builder: (context) => DetailPage(serie),
                             ),
                           );
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: Colors.grey[900],
+                            color: themeProvider.isDarkMode ? Colors.grey[900] : Colors.grey[200],
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: ClipRRect(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(8),
-                                    topRight: Radius.circular(8),
-                                  ),
+                              ClipRRect(
+                                borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
                                   child: Image.asset(
-                                    serie.image,
+                                  serie.bgImage,
+                                  width: double.infinity,
+                                  height: 200,
                                     fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      print(
-                                        'Erreur lors du chargement de l\'image: ${serie.image}',
-                                      );
-                                      print('Erreur: $error');
-                                      return Container(
-                                        color: Colors.grey[800],
-                                        child: const Center(
-                                          child: Icon(
-                                            Icons.error_outline,
-                                            color: Colors.red,
-                                            size: 40,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
                                 ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(12),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      serie.title,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      serie.genre,
+                                      serie.name,
                                       style: TextStyle(
-                                        color: Colors.grey[400],
-                                        fontSize: 12,
+                                        color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
                                       ),
                                     ),
-                                    const SizedBox(height: 4),
+                                    const SizedBox(height: 8),
                                     Row(
                                       children: [
-                                        const Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                          size: 16,
-                                        ),
+                                        const Icon(Icons.star, color: Colors.amber, size: 16),
                                         Text(
-                                          ' ${serie.rating}',
-                                          style: const TextStyle(
-                                            color: Colors.white,
+                                          ' ${serie.score}',
+                                          style: TextStyle(
+                                            color: themeProvider.isDarkMode ? Colors.grey : Colors.black54,
                                           ),
                                         ),
-                                        const Spacer(),
+                                        const SizedBox(width: 16),
                                         Text(
-                                          '${serie.seasons} saisons',
+                                          serie.type,
                                           style: TextStyle(
-                                            color: Colors.grey[400],
-                                            fontSize: 12,
+                                            color: themeProvider.isDarkMode ? Colors.grey : Colors.black54,
                                           ),
                                         ),
                                       ],
