@@ -62,7 +62,7 @@ class CategorySection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: Color.fromARGB(255, 19, 18, 18),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -94,7 +94,12 @@ class CategorySection extends StatelessWidget {
                       Text(
                         categories[index]['title'] as String,
                         style: TextStyle(
-                          color: Colors.black.withOpacity(1),
+                          color: const Color.fromARGB(
+                            255,
+                            255,
+                            253,
+                            253,
+                          ).withOpacity(1),
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -111,7 +116,11 @@ class CategorySection extends StatelessWidget {
             width: 400,
             child: const Text(
               'POPULAIRES',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              style: TextStyle(
+                color: Color.fromARGB(255, 243, 243, 243),
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
             ),
           ),
           PopularSection(),
@@ -121,7 +130,11 @@ class CategorySection extends StatelessWidget {
             width: 410,
             child: const Text(
               'NOUVEAUX',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+              style: TextStyle(
+                color: Color.fromARGB(255, 243, 243, 243),
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
             ),
           ),
           NewestSection(),
