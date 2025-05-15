@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:newtest/models/info.dart';
 import 'package:newtest/models/comment.dart';
+import 'package:newtest/pages/Details/widgets/review.dart';
+import 'package:newtest/models/content_details.dart';
 
 class ReviewSection extends StatefulWidget {
   final Info info;
@@ -17,8 +19,7 @@ class _ReviewSectionState extends State<ReviewSection> {
   @override
   void initState() {
     super.initState();
-    // Initialiser avec des commentaires vides pour l'exemple
-    _comments.addAll([]);
+    // Initialize with empty comments since Info doesn't have comments
   }
 
   @override
@@ -32,9 +33,9 @@ class _ReviewSectionState extends State<ReviewSection> {
 
     final newComment = Comment(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
-      contentId: widget.info.name,
-      userId: 'current_user_id',
-      username: 'Utilisateur',
+      contentId: widget.info.name, // Using name instead of title
+      userId: 'current_user_id', // À remplacer par l'ID de l'utilisateur connecté
+      username: 'Utilisateur', // À remplacer par le nom d'utilisateur
       text: _commentController.text.trim(),
       timestamp: DateTime.now(),
     );
@@ -47,10 +48,23 @@ class _ReviewSectionState extends State<ReviewSection> {
 
   @override
   Widget build(BuildContext context) {
+    // Convertir Info en ContentDetails
+    final content = ContentDetails(
+      title: widget.info.name,
+      image: widget.info.icon,
+      rating: widget.info.score.toDouble(),
+      year: 2024, // Valeur par défaut
+      genre: widget.info.type,
+      description: widget.info.description,
+      actors: [], // Liste vide par défaut
+      streamingPlatforms: [], // Liste vide par défaut
+      releaseDate: '', // Valeur par défaut
+      comments: _comments,
+    );
+
     return Container(
       padding: const EdgeInsets.all(25),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,88 +107,27 @@ class _ReviewSectionState extends State<ReviewSection> {
                       Icon(
                         Icons.star,
                         size: 25,
-                        color: const Color.fromARGB(255, 7, 7, 7).withOpacity(0.3),
+                        // ignore: deprecated_member_use
+                        color: const Color.fromARGB(
+                          255,
+                          7,
+                          7,
+                          7,
+                        ).withOpacity(0.3),
                       ),
                     ],
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    '${widget.info.review} reviews',
-                    style: const TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
-                    ),
+                    '${widget.info.review.toString()} review',
+                    style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                   ),
                 ],
               ),
             ],
           ),
-          const SizedBox(height: 20),
-          const Text(
-            'Commentaires',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 10),
-          TextField(
-            controller: _commentController,
-            decoration: InputDecoration(
-              hintText: 'Ajouter un commentaire...',
-              filled: true,
-              fillColor: Colors.grey[200],
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide.none,
-              ),
-              suffixIcon: IconButton(
-                icon: const Icon(Icons.send, color: Colors.blue),
-                onPressed: _addComment,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: _comments.length,
-            itemBuilder: (context, index) {
-              final comment = _comments[index];
-              return Container(
-                margin: const EdgeInsets.only(bottom: 16),
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          comment.username,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          '${comment.timestamp.day}/${comment.timestamp.month}/${comment.timestamp.year}',
-                          style: const TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(comment.text),
-                  ],
-                ),
-              );
-            },
-          ),
+          const SizedBox(height: 5),
+          ReviewComment(content: content),
         ],
       ),
     );
