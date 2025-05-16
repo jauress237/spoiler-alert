@@ -43,18 +43,18 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
       245,
       167,
       'Description du film 3',
-      ['assets/images/banner-img/banner-img-2.png'],
+      ['../../assets/images/banner-img/banner-img-2.png'],
     ),
     Info(
-      'assets/images/banner-img/banner-img-1.png',
-      'assets/images/banner-img/banner-img-1.png',
+      '../../assets/images/banner-img/banner-img-1.png',
+      '../../assets/images/banner-img/banner-img-1.png',
       'Film 4',
       'Action',
       4.6,
       212,
       145,
       'Description du film 4',
-      ['assets/images/banner-img/banner-img-1.png'],
+      ['../../assets/images/banner-img/banner-img-1.png'],
     ),
   ];
 
