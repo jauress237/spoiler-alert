@@ -6,6 +6,7 @@ import 'package:newtest/pages/home/widgets/category.dart';
 import 'package:newtest/pages/home/widgets/search.dart';
 import 'package:newtest/pages/home/widgets/nouveautes_carousel.dart';
 import 'package:newtest/providers/theme_provider.dart';
+import 'package:newtest/pages/detail/detail.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -133,11 +134,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                // Bannière principale inspirée du Microsoft Store
-                _MainBanner(),
-                const SizedBox(height: 20),
                 // Carrousel de nouveautés
                 NouveautesCarousel(),
+                const SizedBox(height: 20),
+                // Bannière principale inspirée du Microsoft Store
+                _MainBanner(),
                 const SizedBox(height: 20),
                 // CategorySection et NewestSection restent pour l'instant
                 CategorySection(),
@@ -158,80 +159,101 @@ class _MainBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Container(
-        height: 220,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          image: const DecorationImage(
-            image: AssetImage('assets/images/moana_banner.jpg'), // À remplacer par ton image
-            fit: BoxFit.cover,
+      child: GestureDetector(
+        onTap: () {
+          final info = Info(
+            'assets/images/moana_banner.jpg',
+            'assets/images/moana_banner.jpg',
+            'Moana',
+            'Animation',
+            4.8,
+            245,
+            167,
+            'Description détaillée du film Moana. Une histoire captivante qui vous tiendra en haleine du début à la fin.',
+            ['assets/images/moana_banner.jpg'],
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailPage(info),
+            ),
+          );
+        },
+        child: Container(
+          height: 220,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            image: const DecorationImage(
+              image: AssetImage('assets/images/moana_banner.jpg'),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.black.withOpacity(0.35),
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.black.withOpacity(0.35),
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text(
-                    'Moana',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
+              Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Moana',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Louez-le aujourd\'hui',
-                    style: TextStyle(
-                      color: Colors.white.withOpacity(0.9),
-                      fontSize: 16,
+                    const SizedBox(height: 8),
+                    Text(
+                      'Louez-le aujourd\'hui',
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text('Voir les détails'),
+                        ),
+                        const SizedBox(width: 16),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.85),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Text(
+                            'A la une cette semaine',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                        onPressed: () {},
-                        child: const Text('Voir les détails'),
-                      ),
-                      const SizedBox(width: 16),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.85),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Text(
-                          'A la une cette semaine',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
