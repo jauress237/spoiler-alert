@@ -6,6 +6,7 @@ import 'package:newtest/pages/home/widgets/category.dart';
 import 'package:newtest/pages/home/widgets/search.dart';
 import 'package:newtest/pages/home/widgets/nouveautes_carousel.dart';
 import 'package:newtest/providers/theme_provider.dart';
+import 'package:newtest/pages/recherche/search1.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -76,56 +77,75 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                      // Bouton paramètre
-                      PopupMenuButton<String>(
-                        icon: Icon(
-                          Icons.settings,
-                          color: themeProvider.isDarkMode ? Colors.white : Colors.black,
-                          size: 28,
-                        ),
-                        color: themeProvider.isDarkMode ? const Color(0xFF2A2A2A) : Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        onSelected: (value) {
-                          if (value == 'theme') {
-                            themeProvider.toggleTheme();
-                          } else if (value == 'profile') {
-                            // Navigation vers la page de profil
-                          }
-                        },
-                        itemBuilder: (BuildContext context) => [
-                          PopupMenuItem<String>(
-                            value: 'theme',
-                            child: Row(
-                              children: [
-                                Icon(
-                                  themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                                  color: themeProvider.isDarkMode ? Colors.white : Colors.black,
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  themeProvider.isDarkMode ? 'Mode Clair' : 'Mode Sombre',
-                                  style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
-                                ),
-                              ],
+                      // Boutons de recherche et paramètres
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.search,
+                              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                              size: 28,
                             ),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const RecherchePage(),
+                                ),
+                              );
+                            },
                           ),
-                          PopupMenuItem<String>(
-                            value: 'profile',
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.person,
-                                  color: themeProvider.isDarkMode ? Colors.white : Colors.black,
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  'Mon Profil',
-                                  style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
-                                ),
-                              ],
+                          PopupMenuButton<String>(
+                            icon: Icon(
+                              Icons.settings,
+                              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                              size: 28,
                             ),
+                            color: themeProvider.isDarkMode ? const Color(0xFF2A2A2A) : Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            onSelected: (value) {
+                              if (value == 'theme') {
+                                themeProvider.toggleTheme();
+                              } else if (value == 'profile') {
+                                // Navigation vers la page de profil
+                              }
+                            },
+                            itemBuilder: (BuildContext context) => [
+                              PopupMenuItem<String>(
+                                value: 'theme',
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                                      color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      themeProvider.isDarkMode ? 'Mode Clair' : 'Mode Sombre',
+                                      style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              PopupMenuItem<String>(
+                                value: 'profile',
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.person,
+                                      color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                                    ),
+                                    const SizedBox(width: 10),
+                                    Text(
+                                      'Mon Profil',
+                                      style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

@@ -4,6 +4,7 @@ import 'package:newtest/models/content_details.dart';
 import 'package:newtest/models/info.dart';
 import 'package:newtest/pages/detail/detail.dart';
 import 'package:newtest/providers/theme_provider.dart';
+import 'package:newtest/pages/recherche/search1.dart';
 
 class FilmsPage extends StatelessWidget {
   const FilmsPage({super.key});
@@ -77,7 +78,14 @@ class FilmsPage extends StatelessWidget {
                   Icons.search,
                   color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RecherchePage(),
+                    ),
+                  );
+                },
               ),
               IconButton(
                 icon: Icon(
