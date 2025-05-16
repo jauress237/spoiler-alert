@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:newtest/pages/Home/widgets/newest.dart';
 import 'package:newtest/pages/Home/widgets/pupular.dart';
 import 'package:newtest/providers/theme_provider.dart';
+import 'package:newtest/pages/Films/films_page.dart';
+import 'package:newtest/pages/Series/series_page.dart';
 
 class CategorySection extends StatelessWidget {
   CategorySection({super.key});
@@ -64,6 +66,24 @@ class CategorySection extends StatelessWidget {
     ],
   };
 
+  void _navigateToCategory(BuildContext context, String section, String category) {
+    if (section == 'Films') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const FilmsPage(),
+        ),
+      );
+    } else if (section == 'Séries') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SeriesPage(),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -123,9 +143,7 @@ class CategorySection extends StatelessWidget {
                         color: Colors.transparent,
                         child: InkWell(
                           borderRadius: BorderRadius.circular(20),
-                          onTap: () {
-                            // Action lors du clic sur une catégorie
-                          },
+                          onTap: () => _navigateToCategory(context, entry.key, category['title'] as String),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 15),
                             child: Row(
