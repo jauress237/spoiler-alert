@@ -91,20 +91,52 @@ class _MainNavigationState extends State<MainNavigation> {
               },
               selectedIconTheme: const IconThemeData(
                 color: Colors.red,
-                size: 32, // Icônes plus grandes
+                size: 32,
               ),
               unselectedIconTheme: const IconThemeData(
                 color: Colors.grey,
-                size: 32, // Icônes plus grandes
+                size: 32,
               ),
               selectedLabelTextStyle: const TextStyle(
                 color: Colors.red,
-                fontSize: 16, // Texte plus grand
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
               unselectedLabelTextStyle: const TextStyle(
                 color: Colors.grey,
-                fontSize: 16, // Texte plus grand
+                fontSize: 16,
+              ),
+              leading: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Image.asset(
+                    'assets/images/iconapp.jpg',
+                    width: 120,
+                    height: 120,
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+              trailing: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.settings, color: Colors.grey),
+                      onPressed: () {
+                        // Action pour les paramètres
+                      },
+                    ),
+                    const Text(
+                      'Paramètres',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               destinations: const [
                 NavigationRailDestination(
