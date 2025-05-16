@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:newtest/models/info.dart';
 import 'package:newtest/pages/Home/widgets/newest.dart';
 import 'package:newtest/pages/home/widgets/category.dart';
 import 'package:newtest/pages/home/widgets/search.dart';
 import 'package:newtest/pages/home/widgets/nouveautes_carousel.dart';
-import 'package:newtest/providers/theme_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,12 +13,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _isDarkMode = true;
+
+  void _toggleTheme() {
+    setState(() {
+      _isDarkMode = !_isDarkMode;
+      // Ici, vous pouvez ajouter la logique pour changer le thème de l'application
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    
     return Scaffold(
-      backgroundColor: themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
+      backgroundColor: const Color(0xFF1A1A1A),
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -31,7 +36,7 @@ class _HomePageState extends State<HomePage> {
               child: Image.asset(
                 'assets/images/bg_liquid.png',
                 width: 180,
-                color: themeProvider.isDarkMode ? Colors.purple.withOpacity(0.3) : Colors.purple.withOpacity(0.1),
+                color: Colors.purple.withOpacity(0.3),
               ),
             ),
             Positioned(
@@ -43,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                 child: Image.asset(
                   'assets/images/bg_liquid.png',
                   width: 200,
-                  color: themeProvider.isDarkMode ? Colors.blue.withOpacity(0.3) : Colors.blue.withOpacity(0.1),
+                  color: Colors.blue.withOpacity(0.3),
                 ),
               ),
             ),
@@ -65,10 +70,10 @@ class _HomePageState extends State<HomePage> {
                             height: 40,
                           ),
                           const SizedBox(width: 10),
-                          Text(
+                          const Text(
                             'SPOILER ALERT',
                             style: TextStyle(
-                              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                              color: Colors.white,
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.5,
@@ -80,16 +85,16 @@ class _HomePageState extends State<HomePage> {
                       PopupMenuButton<String>(
                         icon: Icon(
                           Icons.settings,
-                          color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                          color: Colors.white,
                           size: 28,
                         ),
-                        color: themeProvider.isDarkMode ? const Color(0xFF2A2A2A) : Colors.white,
+                        color: const Color(0xFF2A2A2A),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
                         onSelected: (value) {
                           if (value == 'theme') {
-                            themeProvider.toggleTheme();
+                            _toggleTheme();
                           } else if (value == 'profile') {
                             // Navigation vers la page de profil
                           }
@@ -100,13 +105,13 @@ class _HomePageState extends State<HomePage> {
                             child: Row(
                               children: [
                                 Icon(
-                                  themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                                  color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                                  _isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                                  color: Colors.white,
                                 ),
                                 const SizedBox(width: 10),
                                 Text(
-                                  themeProvider.isDarkMode ? 'Mode Clair' : 'Mode Sombre',
-                                  style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
+                                  _isDarkMode ? 'Mode Clair' : 'Mode Sombre',
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ],
                             ),
@@ -114,15 +119,15 @@ class _HomePageState extends State<HomePage> {
                           PopupMenuItem<String>(
                             value: 'profile',
                             child: Row(
-                              children: [
+                              children: const [
                                 Icon(
                                   Icons.person,
-                                  color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                                  color: Colors.white,
                                 ),
-                                const SizedBox(width: 10),
+                                SizedBox(width: 10),
                                 Text(
                                   'Mon Profil',
-                                  style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
+                                  style: TextStyle(color: Colors.white),
                                 ),
                               ],
                             ),
@@ -212,20 +217,23 @@ class _MainBanner extends StatelessWidget {
                         child: const Text('Voir les détails'),
                       ),
                       const SizedBox(width: 16),
-                      Container(
+                      MediaQuery.of(context).size.width <= 600 
+                          ? const SizedBox()
+                          : Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         decoration: BoxDecoration(
                           color: Colors.white.withOpacity(0.85),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const Text(
-                          'A la une cette semaine',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        child: Text(
+                              'A la une cette semaine',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                       ),
+                      
                     ],
                   ),
                 ],
