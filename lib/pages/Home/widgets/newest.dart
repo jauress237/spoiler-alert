@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:newtest/models/info.dart';
 import 'package:newtest/pages/detail/detail.dart';
+import 'package:newtest/providers/theme_provider.dart';
 
 class NewestSection extends StatelessWidget {
   NewestSection({super.key});
@@ -9,8 +11,10 @@ class NewestSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
     return Container(
-      padding: const EdgeInsets.all(25),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: f_Actions
             .asMap()

@@ -63,58 +63,164 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 600;
+    
+    // Calcul de la largeur du rail en fonction de la taille de l'écran
+    final railWidth = screenWidth > 1200 
+        ? 250.0 
+        : screenWidth > 900 
+            ? 200.0 
+            : screenWidth > 600 
+                ? 150.0 
+                : 0.0;
+
     return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFF1A1A1A),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.3),
-              spreadRadius: 1,
-              blurRadius: 10,
+      body: Row(
+        children: [
+          if (isLargeScreen)
+            NavigationRail(
+              extended: true,
+              minExtendedWidth: railWidth,
+              backgroundColor: const Color(0x39A42727),
+              selectedIndex: _selectedIndex,
+              onDestinationSelected: (index) {
+                setState(() {
+                  _selectedIndex = index;
+                });
+              },
+              selectedIconTheme: const IconThemeData(
+                color: Colors.red,
+                size: 32,
+              ),
+              unselectedIconTheme: const IconThemeData(
+                color: Colors.grey,
+                size: 32,
+              ),
+              selectedLabelTextStyle: const TextStyle(
+                color: Colors.red,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+              unselectedLabelTextStyle: const TextStyle(
+                color: Colors.grey,
+                fontSize: 16,
+              ),
+              leading: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Image.asset(
+                    'assets/images/iconapp.jpg',
+                    width: 120,
+                    height: 120,
+                  ),
+                  const SizedBox(height: 20),
+                ],
+              ),
+              trailing: Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.settings, color: Colors.grey),
+                      onPressed: () {
+                        // Action pour les paramètres
+                      },
+                    ),
+                    const Text(
+                      'Paramètres',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              destinations: const [
+                NavigationRailDestination(
+                  icon: Icon(Icons.home_rounded),
+                  label: Text('Accueil'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.movie_creation_rounded),
+                  label: Text('Films'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.tv_rounded),
+                  label: Text('Séries'),
+                ),
+                NavigationRailDestination(
+                  icon: Icon(Icons.favorite_rounded),
+                  label: Text('Favoris'),
+                ),
+              ],
             ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+          Expanded(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxWidth: isLargeScreen ? 800 : double.infinity,
+                ),
+                child: _pages[_selectedIndex],
+              ),
+            ),
           ),
-          child: BottomNavigationBar(
-            currentIndex: _selectedIndex,
-            onTap: (index) {
-              setState(() {
-                _selectedIndex = index;
-              });
-            },
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color(0x39A42727),
-            selectedItemColor: Colors.red,
-            unselectedItemColor: Colors.grey,
-            selectedFontSize: 12,
-            unselectedFontSize: 12,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
-                label: 'Accueil',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.movie_creation_rounded),
-                label: 'Films',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.tv_rounded),
-                label: 'Séries',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.favorite_rounded),
-                label: 'Favoris',
-              ),
-            ],
-          ),
-        ),
+        ],
       ),
+      bottomNavigationBar: isLargeScreen
+          ? null
+          : Container(
+              decoration: BoxDecoration(
+                color: const Color(0xFF1A1A1A),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 10,
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+                child: BottomNavigationBar(
+                  currentIndex: _selectedIndex,
+                  onTap: (index) {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  type: BottomNavigationBarType.fixed,
+                  backgroundColor: const Color(0x39A42727),
+                  selectedItemColor: Colors.red,
+                  unselectedItemColor: Colors.grey,
+                  selectedFontSize: 12,
+                  unselectedFontSize: 12,
+                  items: const [
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.home_rounded),
+                      label: 'Accueil',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.movie_creation_rounded),
+                      label: 'Films',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.tv_rounded),
+                      label: 'Séries',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.favorite_rounded),
+                      label: 'Favoris',
+                    ),
+                  ],
+                ),
+              ),
+            ),
     );
   }
 }

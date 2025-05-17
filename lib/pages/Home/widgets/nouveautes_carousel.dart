@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:newtest/models/info.dart';
 import 'package:newtest/pages/detail/detail.dart';
+import 'package:newtest/providers/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 class NouveautesCarousel extends StatefulWidget {
   @override
@@ -10,12 +12,13 @@ class NouveautesCarousel extends StatefulWidget {
 class _NouveautesCarouselState extends State<NouveautesCarousel> {
   final PageController _pageController = PageController(viewportFraction: 0.75);
   int _currentPage = 0;
+  late ThemeProvider themeProvider;
 
   final List<Info> _items = [
     Info(
       '../../assets/images/banner-img/banner-img-4.png',
       '../../assets/images/banner-img/banner-img-4.png',
-      'Film 1',
+      'Ma madame et Moi',
       'Action',
       4.7,
       226,
@@ -26,8 +29,8 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
     Info(
       '../../assets/images/banner-img/banner-img-3.png',
       '../../assets/images/banner-img/banner-img-3.png',
-      'Film 2',
-      'Action',
+      'Jamess Bond Agent 007',
+      'Jamess Bond',
       4.5,
       198,
       132,
@@ -37,26 +40,32 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
     Info(
       '../../assets/images/banner-img/banner-img-2.png',
       '../../assets/images/banner-img/banner-img-2.png',
-      'Film 3',
+      'Mission Impossible',
       'Action',
       4.8,
       245,
       167,
       'Description du film 3',
-      ['assets/images/banner-img/banner-img-2.png'],
+      ['../../assets/images/banner-img/banner-img-2.png'],
     ),
     Info(
-      'assets/images/banner-img/banner-img-1.png',
-      'assets/images/banner-img/banner-img-1.png',
-      'Film 4',
+      '../../assets/images/banner-img/banner-img-1.png',
+      '../../assets/images/banner-img/banner-img-1.png',
+      'Terminator',
       'Action',
       4.6,
       212,
       145,
-      'Description du film 4',
-      ['assets/images/banner-img/banner-img-1.png'],
+      'Description du terminator',
+      ['../../assets/images/banner-img/banner-img-1.png'],
     ),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+  }
 
   @override
   void dispose() {
@@ -66,6 +75,10 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 600;
+    final carouselHeight = isLargeScreen ? 180 * 2.5 : 180.0;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -73,10 +86,10 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
-            'Nouveautés - Films',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 22,
+            'Les tendances en matiere de films et series',
+            style: TextStyle(
+              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
               letterSpacing: 0.5,
             ),
@@ -84,7 +97,7 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
         ),
         const SizedBox(height: 12),
         SizedBox(
-          height: 200,
+          height: carouselHeight,
           child: PageView.builder(
             controller: _pageController,
             itemCount: _items.length,

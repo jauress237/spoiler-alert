@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:newtest/pages/Home/widgets/newest.dart';
 import 'package:newtest/pages/Home/widgets/pupular.dart';
 import 'package:newtest/pages/films/films_page.dart';
 import 'package:newtest/pages/series/series_page.dart';
+import 'package:newtest/providers/theme_provider.dart';
 
 class CategorySection extends StatelessWidget {
   CategorySection({super.key});
@@ -63,6 +65,8 @@ class CategorySection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
     return Container(
       decoration: const BoxDecoration(
         color: Color(0xFF181A20),

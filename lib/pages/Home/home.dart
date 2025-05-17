@@ -5,7 +5,7 @@ import 'package:newtest/pages/Home/widgets/newest.dart';
 import 'package:newtest/pages/home/widgets/category.dart';
 import 'package:newtest/pages/home/widgets/search.dart';
 import 'package:newtest/pages/home/widgets/nouveautes_carousel.dart';
-import 'package:newtest/providers/theme_provider.dart' as theme;
+import 'package:newtest/providers/theme_provider.dart';
 import 'package:newtest/pages/detail/detail.dart';
 import 'package:newtest/pages/recherche/search1.dart';
 
@@ -19,11 +19,110 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<theme.ThemeProvider>(context);
-
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    
     return Scaffold(
-      backgroundColor:
-          themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
+      backgroundColor: themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
+      appBar: MediaQuery.of(context).size.width <= 600 ? AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+             Text(
+              'SPOILER',
+              style: TextStyle(
+                color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
+              ),
+            ),
+            const SizedBox(height: 2),
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Text(
+                'ALERT',
+                style: TextStyle(
+                  color: Colors.red[900],
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5,
+                ),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+              size: 28,
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const RecherchePage(),
+                ),
+              );
+            },
+          ),
+          PopupMenuButton<String>(
+            icon: Icon(
+              Icons.settings,
+              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+              size: 28,
+            ),
+            color: themeProvider.isDarkMode ? const Color(0xFF2A2A2A) : Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            onSelected: (value) {
+              if (value == 'theme') {
+                themeProvider.toggleTheme();
+              } else if (value == 'profile') {
+                // Navigation vers la page de profil
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              PopupMenuItem<String>(
+                value: 'theme',
+                child: Row(
+                  children: [
+                    Icon(
+                      themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
+                      color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      themeProvider.isDarkMode ? 'Mode Clair' : 'Mode Sombre',
+                      style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+              PopupMenuItem<String>(
+                value: 'profile',
+                child: Row(
+                  children: [
+                    Icon(
+                      Icons.person,
+                      color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Mon Profil',
+                      style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ) : null,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -34,9 +133,7 @@ class _HomePageState extends State<HomePage> {
               child: Image.asset(
                 'assets/images/bg_liquid.png',
                 width: 180,
-                color: themeProvider.isDarkMode
-                    ? Colors.purple.withOpacity(0.3)
-                    : Colors.purple.withOpacity(0.1),
+                color: themeProvider.isDarkMode ? Colors.purple.withOpacity(0.3) : Colors.purple.withOpacity(0.1),
               ),
             ),
             Positioned(
@@ -48,138 +145,14 @@ class _HomePageState extends State<HomePage> {
                 child: Image.asset(
                   'assets/images/bg_liquid.png',
                   width: 200,
-                  color: themeProvider.isDarkMode
-                      ? Colors.blue.withOpacity(0.3)
-                      : Colors.blue.withOpacity(0.1),
+                  color: themeProvider.isDarkMode ? Colors.blue.withOpacity(0.3) : Colors.blue.withOpacity(0.1),
                 ),
               ),
             ),
             // Contenu principal
             Column(
               children: [
-                // Logo, nom de l'application et bouton paramètre
-                Padding(
-                  padding: const EdgeInsets.only(top: 40, left: 20, right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Logo et nom de l'application
-                      Row(
-                        children: [
-                          Image.asset(
-                            'assets/images/iconapp.jpg',
-                            width: 40,
-                            height: 40,
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            'SPOILER ALERT',
-                            style: TextStyle(
-                              color: themeProvider.isDarkMode
-                                  ? Colors.white
-                                  : Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                      // Boutons de recherche et paramètres
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.search,
-                              color: themeProvider.isDarkMode
-                                  ? Colors.white
-                                  : Colors.black,
-                              size: 28,
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const RecherchePage(),
-                                ),
-                              );
-                            },
-                          ),
-                          PopupMenuButton<String>(
-                            icon: Icon(
-                              Icons.settings,
-                              color: themeProvider.isDarkMode
-                                  ? Colors.white
-                                  : Colors.black,
-                              size: 28,
-                            ),
-                            color: themeProvider.isDarkMode
-                                ? const Color(0xFF2A2A2A)
-                                : Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            onSelected: (value) {
-                              if (value == 'theme') {
-                                themeProvider.toggleTheme();
-                              } else if (value == 'profile') {
-                                // Navigation vers la page de profil
-                              }
-                            },
-                            itemBuilder: (BuildContext context) => [
-                              PopupMenuItem<String>(
-                                value: 'theme',
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      themeProvider.isDarkMode
-                                          ? Icons.light_mode
-                                          : Icons.dark_mode,
-                                      color: themeProvider.isDarkMode
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      themeProvider.isDarkMode
-                                          ? 'Mode Clair'
-                                          : 'Mode Sombre',
-                                      style: TextStyle(
-                                          color: themeProvider.isDarkMode
-                                              ? Colors.white
-                                              : Colors.black),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              PopupMenuItem<String>(
-                                value: 'profile',
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.person,
-                                      color: themeProvider.isDarkMode
-                                          ? Colors.white
-                                          : Colors.black,
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      'Mon Profil',
-                                      style: TextStyle(
-                                          color: themeProvider.isDarkMode
-                                              ? Colors.white
-                                              : Colors.black),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+                // Suppression de l'ancien header car il est maintenant dans l'AppBar
                 const SizedBox(height: 20),
                 // Carrousel de nouveautés
                 NouveautesCarousel(),
@@ -260,7 +233,7 @@ class _MainBanner extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Louez-le aujourd\'hui',
+                      'Tout au meme endroit',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.9),
                         fontSize: 16,
@@ -281,8 +254,7 @@ class _MainBanner extends StatelessWidget {
                         ),
                         const SizedBox(width: 16),
                         Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.85),
                             borderRadius: BorderRadius.circular(8),
