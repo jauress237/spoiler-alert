@@ -29,25 +29,25 @@ class _HomePageState extends State<HomePage> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'SPOILER',
               style: TextStyle(
-                color: Colors.white,
+                color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                letterSpacing: 1.5,
+                letterSpacing: 0.5,
               ),
             ),
-            const SizedBox(height: 2),
+            const SizedBox(height: 0),
             Padding(
-              padding: const EdgeInsets.only(left: 20),
+              padding: const EdgeInsets.only(left: 70),
               child: Text(
                 'ALERT',
                 style: TextStyle(
                   color: Colors.red[900],
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  letterSpacing: 1.5,
+                  letterSpacing: 0.5,
                 ),
               ),
             ),
@@ -177,6 +177,10 @@ class _HomePageState extends State<HomePage> {
 class _MainBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 600;
+    final bannerHeight = isLargeScreen ? 220 * 2.5 : 220.0;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
@@ -200,7 +204,7 @@ class _MainBanner extends StatelessWidget {
           );
         },
         child: Container(
-          height: 220,
+          height: bannerHeight,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             image: const DecorationImage(

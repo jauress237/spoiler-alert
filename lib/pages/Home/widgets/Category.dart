@@ -177,17 +177,17 @@ class CategorySection extends StatelessWidget {
             ],
           )).toList(),
 
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            child: Text(
-              'POPULAIRES',
-              style: TextStyle(
-                color: themeProvider.isDarkMode ? Colors.white : Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          //   child: Text(
+          //     'POPULAIRES',
+          //     style: TextStyle(
+          //       color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+          //       fontWeight: FontWeight.bold,
+          //       fontSize: 20,
+          //     ),
+          //   ),
+          // ),
           PopularSection(),
 
           Padding(

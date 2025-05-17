@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:newtest/models/info.dart';
 import 'package:newtest/pages/detail/detail.dart';
 
@@ -66,6 +66,10 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 600;
+    final carouselHeight = isLargeScreen ? 180 * 2.5 : 180.0;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -82,7 +86,7 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
         // ),
         // const SizedBox(height: 12),
         SizedBox(
-          height: 180,
+          height: carouselHeight,
           child: PageView.builder(
             controller: _pageController,
             itemCount: _items.length,
