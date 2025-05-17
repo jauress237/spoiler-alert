@@ -86,7 +86,7 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Text(
-            'Le blog sur les tendence en matiere de films et series',
+            'Les tendances en matiere de films et series',
             style: TextStyle(
               color: themeProvider.isDarkMode ? Colors.white : Colors.black,
               fontSize: 15,
