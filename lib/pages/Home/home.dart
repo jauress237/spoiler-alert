@@ -5,7 +5,7 @@ import 'package:newtest/pages/Home/widgets/newest.dart';
 import 'package:newtest/pages/home/widgets/category.dart';
 import 'package:newtest/pages/home/widgets/search.dart';
 import 'package:newtest/pages/home/widgets/nouveautes_carousel.dart';
-import 'package:newtest/providers/theme_provider.dart';
+import 'package:newtest/providers/theme_provider.dart' as theme;
 import 'package:newtest/pages/detail/detail.dart';
 import 'package:newtest/pages/recherche/search1.dart';
 
@@ -19,10 +19,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-    
+    final themeProvider = Provider.of<theme.ThemeProvider>(context);
+
     return Scaffold(
-      backgroundColor: themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
+      backgroundColor:
+          themeProvider.isDarkMode ? const Color(0xFF1A1A1A) : Colors.white,
       body: SingleChildScrollView(
         child: Stack(
           children: [
@@ -33,7 +34,9 @@ class _HomePageState extends State<HomePage> {
               child: Image.asset(
                 'assets/images/bg_liquid.png',
                 width: 180,
-                color: themeProvider.isDarkMode ? Colors.purple.withOpacity(0.3) : Colors.purple.withOpacity(0.1),
+                color: themeProvider.isDarkMode
+                    ? Colors.purple.withOpacity(0.3)
+                    : Colors.purple.withOpacity(0.1),
               ),
             ),
             Positioned(
@@ -45,7 +48,9 @@ class _HomePageState extends State<HomePage> {
                 child: Image.asset(
                   'assets/images/bg_liquid.png',
                   width: 200,
-                  color: themeProvider.isDarkMode ? Colors.blue.withOpacity(0.3) : Colors.blue.withOpacity(0.1),
+                  color: themeProvider.isDarkMode
+                      ? Colors.blue.withOpacity(0.3)
+                      : Colors.blue.withOpacity(0.1),
                 ),
               ),
             ),
@@ -70,7 +75,9 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             'SPOILER ALERT',
                             style: TextStyle(
-                              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                              color: themeProvider.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                               letterSpacing: 1.5,
@@ -84,7 +91,9 @@ class _HomePageState extends State<HomePage> {
                           IconButton(
                             icon: Icon(
                               Icons.search,
-                              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                              color: themeProvider.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
                               size: 28,
                             ),
                             onPressed: () {
@@ -99,10 +108,14 @@ class _HomePageState extends State<HomePage> {
                           PopupMenuButton<String>(
                             icon: Icon(
                               Icons.settings,
-                              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                              color: themeProvider.isDarkMode
+                                  ? Colors.white
+                                  : Colors.black,
                               size: 28,
                             ),
-                            color: themeProvider.isDarkMode ? const Color(0xFF2A2A2A) : Colors.white,
+                            color: themeProvider.isDarkMode
+                                ? const Color(0xFF2A2A2A)
+                                : Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
@@ -119,13 +132,22 @@ class _HomePageState extends State<HomePage> {
                                 child: Row(
                                   children: [
                                     Icon(
-                                      themeProvider.isDarkMode ? Icons.light_mode : Icons.dark_mode,
-                                      color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                                      themeProvider.isDarkMode
+                                          ? Icons.light_mode
+                                          : Icons.dark_mode,
+                                      color: themeProvider.isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
                                     ),
                                     const SizedBox(width: 10),
                                     Text(
-                                      themeProvider.isDarkMode ? 'Mode Clair' : 'Mode Sombre',
-                                      style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
+                                      themeProvider.isDarkMode
+                                          ? 'Mode Clair'
+                                          : 'Mode Sombre',
+                                      style: TextStyle(
+                                          color: themeProvider.isDarkMode
+                                              ? Colors.white
+                                              : Colors.black),
                                     ),
                                   ],
                                 ),
@@ -136,12 +158,17 @@ class _HomePageState extends State<HomePage> {
                                   children: [
                                     Icon(
                                       Icons.person,
-                                      color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+                                      color: themeProvider.isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
                                     ),
                                     const SizedBox(width: 10),
                                     Text(
                                       'Mon Profil',
-                                      style: TextStyle(color: themeProvider.isDarkMode ? Colors.white : Colors.black),
+                                      style: TextStyle(
+                                          color: themeProvider.isDarkMode
+                                              ? Colors.white
+                                              : Colors.black),
                                     ),
                                   ],
                                 ),
@@ -254,7 +281,8 @@ class _MainBanner extends StatelessWidget {
                         ),
                         const SizedBox(width: 16),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(0.85),
                             borderRadius: BorderRadius.circular(8),

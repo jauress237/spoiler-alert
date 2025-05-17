@@ -69,20 +69,22 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        //   child: Text(
-        //     'Nouveautés - Films',
-        //     style: TextStyle(
-        //       color: Colors.white,
-        //       fontSize: 20,
-        //       fontWeight: FontWeight.bold,
-        //     ),
-        //   ),
-        // ),
-        // const SizedBox(height: 12),
+        // Titre de section
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Text(
+            'Nouveautés - Films',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
         SizedBox(
-          height: 180,
+          height: 200,
           child: PageView.builder(
             controller: _pageController,
             itemCount: _items.length,
@@ -92,30 +94,127 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
               });
             },
             itemBuilder: (context, index) {
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailPage(_items[index]),
-                    ),
-                  );
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: EdgeInsets.symmetric(horizontal: 8, vertical: _currentPage == index ? 0 : 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.3),
-                        blurRadius: 8,
-                        offset: Offset(0, 4),
+              final isActive = _currentPage == index;
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 350),
+                curve: Curves.easeOut,
+                margin: EdgeInsets.symmetric(
+                  horizontal: 8,
+                  vertical: isActive ? 0 : 22,
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPage(_items[index]),
                       ),
-                    ],
-                    image: DecorationImage(
-                      image: AssetImage(_items[index].bgImage),
-                      fit: BoxFit.cover,
+                    );
+                  },
+                  child: AnimatedScale(
+                    scale: isActive ? 1.0 : 0.93,
+                    duration: const Duration(milliseconds: 350),
+                    curve: Curves.easeOut,
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(18),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black
+                                    .withOpacity(isActive ? 0.32 : 0.13),
+                                blurRadius: isActive ? 18 : 8,
+                                offset: const Offset(0, 6),
+                              ),
+                            ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(18),
+                            child: Image.asset(
+                              _items[index].bgImage,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: 200,
+                            ),
+                          ),
+                        ),
+                        // Overlay dégradé sombre
+                        Positioned.fill(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(18),
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.black.withOpacity(0.55),
+                                  Colors.transparent,
+                                  Colors.black.withOpacity(0.25),
+                                ],
+                                begin: Alignment.bottomCenter,
+                                end: Alignment.topCenter,
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Titre et score animés
+                        Positioned(
+                          left: 18,
+                          bottom: 18,
+                          right: 18,
+                          child: AnimatedOpacity(
+                            opacity: isActive ? 1 : 0.7,
+                            duration: const Duration(milliseconds: 350),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    _items[index].name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      shadows: [
+                                        Shadow(
+                                          color: Colors.black54,
+                                          blurRadius: 8,
+                                        ),
+                                      ],
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10, vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.13),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(color: Colors.white24),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      const Icon(Icons.star,
+                                          color: Colors.amber, size: 16),
+                                      const SizedBox(width: 3),
+                                      Text(
+                                        _items[index].score.toString(),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -123,18 +222,28 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
             },
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 14),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(_items.length, (index) {
+            final isActive = _currentPage == index;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               margin: const EdgeInsets.symmetric(horizontal: 4),
-              width: _currentPage == index ? 18 : 8,
+              width: isActive ? 22 : 8,
               height: 8,
               decoration: BoxDecoration(
-                color: _currentPage == index ? Colors.red : Colors.grey,
+                color: isActive ? const Color(0xFFFC5C7D) : Colors.white24,
                 borderRadius: BorderRadius.circular(4),
+                boxShadow: isActive
+                    ? [
+                        BoxShadow(
+                          color: const Color(0xFFFC5C7D).withOpacity(0.18),
+                          blurRadius: 6,
+                          offset: const Offset(0, 2),
+                        ),
+                      ]
+                    : [],
               ),
             );
           }),
@@ -142,4 +251,4 @@ class _NouveautesCarouselState extends State<NouveautesCarousel> {
       ],
     );
   }
-} 
+}
