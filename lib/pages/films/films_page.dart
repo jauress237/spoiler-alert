@@ -6,6 +6,7 @@ import 'package:newtest/models/info.dart';
 import 'package:newtest/pages/detail/detail.dart';
 import 'package:newtest/providers/theme_provider.dart';
 import 'package:newtest/pages/recherche/search1.dart';
+import 'package:newtest/pages/films/video_player_page.dart';
 
 class FilmsPage extends StatelessWidget {
   const FilmsPage({super.key});
@@ -395,7 +396,17 @@ class FilmsPage extends StatelessWidget {
                         Row(
                           children: [
                             ElevatedButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const VideoPlayerPage(
+                                      videoUrl:
+                                          'assets/videos/demo.mp4', // Mets ici le chemin réel de ta vidéo
+                                    ),
+                                  ),
+                                );
+                              },
                               icon: const Icon(Icons.play_arrow_rounded,
                                   size: 26),
                               label: const Text('Lecture'),
