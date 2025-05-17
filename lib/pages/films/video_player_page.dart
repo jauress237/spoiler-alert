@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:newtest/pages/films/ArchivesPage.dart';
 import 'package:video_player/video_player.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class VideoPlayerPage extends StatefulWidget {
-  final String videoUrl; // Peut être un asset ou une URL réseau
+  // Le chemin de la vidéo asset est passé ici
+  final String videoUrl;
 
   const VideoPlayerPage({super.key, required this.videoUrl});
 
@@ -18,9 +20,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   @override
   void initState() {
     super.initState();
-    _controller = widget.videoUrl.startsWith('http')
-        ? VideoPlayerController.network(widget.videoUrl)
-        : VideoPlayerController.asset(widget.videoUrl);
+    _controller = VideoPlayerController.asset(widget.videoUrl);
 
     _controller.initialize().then((_) {
       if (mounted) setState(() {});
@@ -73,8 +73,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
             icon: const Icon(Icons.facebook, color: Color(0xFF4267B2)),
             tooltip: 'Partager sur Facebook',
             onPressed: () {
-              _launchUrl(
-                  'https://www.facebook.com/sharer/sharer.php?u=https://votre-lien-video.com');
+              _launchUrl('https://www.facebook.com/share/16Cc3gcDR6/');
             },
           ),
           IconButton(
@@ -111,6 +110,16 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
             tooltip: 'Partager sur Snapchat',
             onPressed: () {
               _launchUrl('https://www.snapchat.com/');
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.archive, color: Colors.white),
+            tooltip: 'Archives',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ArchivesPage()),
+              );
             },
           ),
         ],
@@ -176,3 +185,13 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
     );
   }
 }
+
+// Pour ouvrir cette page avec ta vidéo locale, fais :
+/// Navigator.push(
+///   context,
+///   MaterialPageRoute(
+///     builder: (context) => VideoPlayerPage(
+///       videoUrl: 'newtest/assets/video/TUTO Flutter #7_ Comment Créer un Splash Screen en 3 MIN ! (et éviter une Grosse ERREUR !).mp4',
+///     ),
+///   ),
+/// );
