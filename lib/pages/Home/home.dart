@@ -29,25 +29,25 @@ class _HomePageState extends State<HomePage> {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+             Text(
               'SPOILER',
               style: TextStyle(
                 color: themeProvider.isDarkMode ? Colors.white : Colors.black,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                letterSpacing: 0.5,
+                letterSpacing: 1.5,
               ),
             ),
-            const SizedBox(height: 0),
+            const SizedBox(height: 2),
             Padding(
-              padding: const EdgeInsets.only(left: 70),
+              padding: const EdgeInsets.only(left: 20),
               child: Text(
                 'ALERT',
                 style: TextStyle(
                   color: Colors.red[900],
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  letterSpacing: 0.5,
+                  letterSpacing: 1.5,
                 ),
               ),
             ),
@@ -177,10 +177,6 @@ class _HomePageState extends State<HomePage> {
 class _MainBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isLargeScreen = screenWidth > 600;
-    final bannerHeight = isLargeScreen ? 220 * 2.5 : 220.0;
-
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: GestureDetector(
@@ -204,7 +200,7 @@ class _MainBanner extends StatelessWidget {
           );
         },
         child: Container(
-          height: bannerHeight,
+          height: 220,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             image: const DecorationImage(
@@ -237,7 +233,7 @@ class _MainBanner extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Louez-le aujourd\'hui',
+                      'Tout au meme endroit',
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.9),
                         fontSize: 16,
